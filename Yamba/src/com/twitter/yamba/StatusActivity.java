@@ -1,6 +1,7 @@
 package com.twitter.yamba;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ public class StatusActivity extends Activity {
 	private Button mButtonTweet;
 	private EditText mTextStatus;
 	private TextView mTextCount;
+	private int mDefaultColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class StatusActivity extends Activity {
         mTextStatus = (EditText) findViewById(R.id.status_text);
         mTextCount = (TextView) findViewById(R.id.status_text_count);
         mTextCount.setText( Integer.toString(140) );
+        mDefaultColor = mTextCount.getTextColors().getDefaultColor();
         
         mButtonTweet.setOnClickListener( new OnClickListener() {
 
@@ -44,6 +47,12 @@ public class StatusActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				int count = 140 - s.length();
 				mTextCount.setText( Integer.toString(count) );
+				
+				if(count<50) {
+					mTextCount.setTextColor(Color.RED);
+				} else {
+					mTextCount.setTextColor(mDefaultColor);
+				}
 			}
 
 			@Override
