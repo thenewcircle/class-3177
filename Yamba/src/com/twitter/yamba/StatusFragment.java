@@ -2,10 +2,14 @@ package com.twitter.yamba;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
-import com.marakana.android.yamba.clientlib.YambaClientException;
 
 public class StatusFragment extends Fragment {
 	private static final String TAG = StatusFragment.class.getSimpleName();
@@ -95,15 +98,28 @@ public class StatusFragment extends Fragment {
 		@Override
 		protected String doInBackground(String... params) {
 			try {
-				YambaClient cloud = new YambaClient("student", "password");
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+				String username = prefs.getString("username", "");
+				String password = prefs.getString("password", "");
+				
+				// Check that username and password are not empty
+				// If empty, Toast a message to set login info and bounce to SettingActivity
+				// Hint: TextUtils.
+				if( TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+					getActivity().startActivity( new Intent(getActivity(), SettingsActivity.class));
+					return "Please update your username and password";
+				}
+				
+				YambaClient cloud = new YambaClient(username, password);
 				cloud.postStatus(params[0]);
+				
 				Log.d(TAG, "Successfully posted to the cloud: " + params[0]);
 				return "Successfully posted";
-			} catch (YambaClientException e) {
+			} catch (Exception e) {
 				Log.e(TAG, "Failed to post to the cloud", e);
 				e.printStackTrace();
 				return "Failed to post";
-			}
+			} 
 		}
 
 		// Called after doInBackground() on UI thread

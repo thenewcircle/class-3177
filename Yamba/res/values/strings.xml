@@ -8,5 +8,10 @@
     <string name="status_text_hint">What\'s happening?</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tweet">Tweet</string>
+    <string name="username">User name</string>
+    <string name="username_summary">What\'s your user name?</string>
+    <string name="password">Password</string>
+    <string name="password_summary">How do you log in?</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

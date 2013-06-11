@@ -27,10 +27,13 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
-			// TODO
+			startActivity( new Intent(this, SettingsActivity.class) );
 			return true;
 		case R.id.action_tweet:
-			startActivity( new Intent(this, StatusActivity.class) );
+			startActivity( new Intent("com.twitter.action.tweet") );
+			return true;
+		case R.id.action_refresh:
+			startService( new Intent(this, RefreshService.class) );
 			return true;
 		default:
 			return false;
