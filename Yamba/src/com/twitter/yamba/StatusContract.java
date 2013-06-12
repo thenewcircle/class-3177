@@ -19,6 +19,7 @@ public class StatusContract {
 	public static final int STATUS_DIR = 2;
 	public static final String STATUS_TYPE_ITEM = "vnd.android.cursor.item/vnd.com.twitter.yamba.provider.status";
 	public static final String STATUS_TYPE_DIR = "vnd.android.cursor.dir/vnd.com.twitter.yamba.provider.status";
+	public static final String DEFAULT_SORT = Column.CREATED_AT + " DESC";
 
 	class Column {
 		public static final String ID = BaseColumns._ID;
