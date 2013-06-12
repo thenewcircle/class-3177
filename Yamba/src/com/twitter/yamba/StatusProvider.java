@@ -60,8 +60,11 @@ public class StatusProvider extends ContentProvider {
 
 		// Was insert successful?
 		if (rowId != -1) {
-			String idString = values.getAsString(StatusContract.Column.ID);
-			ret = Uri.withAppendedPath(uri, idString);
+			long id = values.getAsLong(StatusContract.Column.ID);
+			ret = ContentUris.withAppendedId(uri, id);
+			
+			// Notify that data for this uri has changed
+			getContext().getContentResolver().notifyChange(uri, null);
 		}
 
 		Log.d(TAG, "inserted uri: " + ret);
@@ -93,6 +96,10 @@ public class StatusProvider extends ContentProvider {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		int ret = db.update(StatusContract.TABLE, values, where, selectionArgs);
 
+		if(ret>0) {
+			// Notify that data for this uri has changed
+			getContext().getContentResolver().notifyChange(uri, null);
+		}
 		Log.d(TAG, "updated records: " + ret);
 		return ret;
 	}
@@ -125,6 +132,10 @@ public class StatusProvider extends ContentProvider {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		int ret = db.delete(StatusContract.TABLE, where, selectionArgs);
 
+		if(ret>0) {
+			// Notify that data for this uri has changed
+			getContext().getContentResolver().notifyChange(uri, null);
+		}
 		Log.d(TAG, "deleted records: " + ret);
 		return ret;
 	}
@@ -154,7 +165,10 @@ public class StatusProvider extends ContentProvider {
 		
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
-
+		
+		// register for uri changes
+		cursor.setNotificationUri(getContext().getContentResolver(), uri); 
+		
 		Log.d(TAG, "queried records: "+cursor.getCount());
 		return cursor;
 	}
