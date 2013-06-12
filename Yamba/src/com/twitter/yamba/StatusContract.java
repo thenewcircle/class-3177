@@ -14,6 +14,8 @@ public class StatusContract {
 	// content://com.twitter.yamba.StatusProvider/status
 	public static final String AUTHORITY = "com.twitter.yamba.StatusProvider";
 	public static final Uri CONTENT_URI = Uri.parse("content://"+AUTHORITY+"/"+TABLE);
+	public static final int STATUS_ITEM = 1;
+	public static final int STATUS_DIR = 2;
 	
 	class Column {
 		public static final String ID = BaseColumns._ID;

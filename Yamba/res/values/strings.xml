@@ -13,5 +13,6 @@
     <string name="password">Password</string>
     <string name="password_summary">How do you log in?</string>
     <string name="refresh">Refresh</string>
+    <string name="purge">Purge</string>
 
 </resources>
