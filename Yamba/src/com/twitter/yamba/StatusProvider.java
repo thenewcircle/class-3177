@@ -136,6 +136,7 @@ public class StatusProvider extends ContentProvider {
 			String[] selectionArgs, String sortOrder) {
 
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables( StatusContract.TABLE );
 
 		switch (sURIMatcher.match(uri)) {
 		case StatusContract.STATUS_DIR:
