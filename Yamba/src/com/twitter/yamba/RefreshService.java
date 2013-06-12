@@ -6,7 +6,6 @@ import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,6 +28,7 @@ public class RefreshService extends IntentService {
 		Log.d(TAG, "onCreated");
 	}
 
+	// Executes on a worker thread
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		SharedPreferences prefs = PreferenceManager
@@ -44,8 +44,6 @@ public class RefreshService extends IntentService {
 		}
 		Log.d(TAG, "onStarted");
 
-		DbHelper dbHelper = new DbHelper(this);
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
 
 		YambaClient cloud = new YambaClient(username, password);
@@ -58,7 +56,7 @@ public class RefreshService extends IntentService {
 				values.put(StatusContract.Column.MESSAGE, status.getMessage());
 				values.put(StatusContract.Column.CREATED_AT, status
 						.getCreatedAt().getTime());
-				db.insert(StatusContract.TABLE, null, values);
+				getContentResolver().insert(StatusContract.CONTENT_URI, values);
 
 				Log.d(TAG,
 						String.format("%s: %s", status.getUser(),

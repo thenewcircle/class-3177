@@ -38,6 +38,11 @@
 
         <service android:name="com.twitter.yamba.RefreshService" >
         </service>
+        
+        <provider android:name="com.twitter.yamba.StatusProvider"
+            android:authorities="com.twitter.yamba.StatusProvider" 
+            android:exported="false"
+            />
     </application>
 
 </manifest>
