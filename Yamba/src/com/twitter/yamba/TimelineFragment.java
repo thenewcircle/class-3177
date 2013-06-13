@@ -3,17 +3,21 @@ package com.twitter.yamba;
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 
 public class TimelineFragment extends ListFragment implements
 		LoaderCallbacks<Cursor> {
+	private static final String TAG = TimelineFragment.class.getSimpleName();
 	private static final String[] FROM = { StatusContract.Column.USER,
 			StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT };
 	private static final int[] TO = { R.id.list_item_text_user,
@@ -27,12 +31,13 @@ public class TimelineFragment extends ListFragment implements
 		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
 			if (view.getId() != R.id.list_item_text_created_at)
 				return false;
-						
+
 			// Custom binding
 			long timestamp = cursor.getLong(columnIndex);
-			CharSequence relTime = DateUtils.getRelativeTimeSpanString(timestamp);
-			((TextView)view).setText(relTime);
-			
+			CharSequence relTime = DateUtils
+					.getRelativeTimeSpanString(timestamp);
+			((TextView) view).setText(relTime);
+
 			return true;
 		}
 	};
@@ -48,7 +53,27 @@ public class TimelineFragment extends ListFragment implements
 		setListAdapter(mAdapter);
 
 		getLoaderManager().initLoader(LOADER_ID, null, this);
+
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View v, int position,
+					long id) {
+				startActivity(new Intent(getActivity(), DetailsActivity.class)
+						.putExtra(StatusContract.Column.ID, id));
+			}
+
+		});
+
 	}
+
+//	@Override
+//	public void onListItemClick(ListView l, View v, int position, long id) {
+//		startActivity(new Intent(getActivity(), DetailsActivity.class)
+//				.putExtra(StatusContract.Column.ID, id));
+//
+//		Log.d(TAG, String.format("pos: %d,  id: %d", position, id));
+//	}
 
 	// --- Loader Callbacks ---
 

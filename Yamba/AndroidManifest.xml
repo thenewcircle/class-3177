@@ -35,14 +35,16 @@
             android:name=".SettingsActivity"
             android:label="@string/action_settings" >
         </activity>
+        <activity android:name=".DetailsActivity" >
+        </activity>
 
         <service android:name="com.twitter.yamba.RefreshService" >
         </service>
-        
-        <provider android:name="com.twitter.yamba.StatusProvider"
-            android:authorities="com.twitter.yamba.StatusProvider" 
-            android:exported="false"
-            />
+
+        <provider
+            android:name="com.twitter.yamba.StatusProvider"
+            android:authorities="com.twitter.yamba.StatusProvider"
+            android:exported="false" />
     </application>
 
 </manifest>

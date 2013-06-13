@@ -27,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:autoLink="web"
         android:layout_below="@+id/list_item_text_created_at"
-        android:autoLink="all"
         android:text="Andriod just became the #1 OS on the planet. Take that, Microsoft! http://t.co/123"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
