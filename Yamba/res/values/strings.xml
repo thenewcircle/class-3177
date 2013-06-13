@@ -15,5 +15,7 @@
     <string name="refresh">Refresh</string>
     <string name="purge">Purge</string>
     <string name="status_update">Status Update</string>
+    <string name="interval">Refresh Interval</string>
+    <string name="interval_summary">How frequently should data refresh?</string>
 
 </resources>

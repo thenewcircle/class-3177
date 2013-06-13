@@ -9,5 +9,6 @@
         android:inputType="textPassword"
         android:title="@string/password"
         android:key="password" android:summary="@string/password_summary"/>
+    <ListPreference android:key="interval" android:title="@string/interval" android:summary="@string/interval_summary" android:entries="@array/interval_names" android:entryValues="@array/interval_values"/>
 
 </PreferenceScreen>

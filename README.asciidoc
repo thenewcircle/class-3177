@@ -5,6 +5,7 @@ Android Bootcamp @Twitter - June '13
 
 == Parking Lot ==
 
+* Pull to refresh listener
 * Custom Views
 * NDK
 * Binder IPC
