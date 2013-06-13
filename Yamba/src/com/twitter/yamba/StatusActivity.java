@@ -1,9 +1,8 @@
 package com.twitter.yamba;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class StatusActivity extends Activity {
+public class StatusActivity extends SubActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

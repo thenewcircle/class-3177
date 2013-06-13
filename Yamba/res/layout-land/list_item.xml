@@ -21,19 +21,17 @@
         android:id="@+id/list_item_text_created_at"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/list_item_text_user"
-        android:layout_alignBottom="@+id/list_item_text_user"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/list_item_text_message"
         android:text="10 minutes ago"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/secondary_text_light" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/list_item_text_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/list_item_text_created_at"
+        android:layout_alignRight="@+id/list_item_text_created_at"
+        android:layout_below="@+id/list_item_text_user"
         android:autoLink="web"
         android:focusable="false"
         android:linksClickable="true"

@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
@@ -57,12 +56,23 @@ public class TimelineFragment extends ListFragment implements
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		startActivity(new Intent(getActivity(), DetailsActivity.class)
-				.putExtra(StatusContract.Column.ID, id));
+
+		// Get the details fragment
+		DetailsFragment fragment = (DetailsFragment) getFragmentManager()
+				.findFragmentById(R.id.fragment_details);
+
+		// Is details fragment visible?
+		if (fragment != null && fragment.isVisible()) {
+			fragment.updateView(id);
+		} else {
+			startActivity(new Intent(getActivity(), DetailsActivity.class)
+					.putExtra(StatusContract.Column.ID, id));
+		}
 	}
 
 	// --- Loader Callbacks ---
 
+	// Executed on a non-UI thread
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		if (id != LOADER_ID)

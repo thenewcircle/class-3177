@@ -1,9 +1,8 @@
 package com.twitter.yamba;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends SubActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,5 +18,4 @@ public class DetailsActivity extends Activity {
 							fragment.getClass().getSimpleName()).commit();
 		}
 	}
-
 }
