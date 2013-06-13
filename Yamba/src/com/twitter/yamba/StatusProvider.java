@@ -56,18 +56,18 @@ public class StatusProvider extends ContentProvider {
 
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		long rowId = db.insertWithOnConflict(StatusContract.TABLE, null,
-				values, SQLiteDatabase.CONFLICT_REPLACE);
+				values, SQLiteDatabase.CONFLICT_IGNORE);
 
 		// Was insert successful?
 		if (rowId != -1) {
 			long id = values.getAsLong(StatusContract.Column.ID);
 			ret = ContentUris.withAppendedId(uri, id);
+			Log.d(TAG, "inserted uri: " + ret);
 			
 			// Notify that data for this uri has changed
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
 
-		Log.d(TAG, "inserted uri: " + ret);
 		return ret;
 	}
 
