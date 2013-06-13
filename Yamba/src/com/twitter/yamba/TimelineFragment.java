@@ -8,11 +8,13 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TimelineFragment extends ListFragment implements
 		LoaderCallbacks<Cursor> {
@@ -77,6 +79,7 @@ public class TimelineFragment extends ListFragment implements
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		if (id != LOADER_ID)
 			return null;
+		Log.d(TAG, "onCreateLoader");
 
 		return new CursorLoader(getActivity(), StatusContract.CONTENT_URI,
 				null, null, null, StatusContract.DEFAULT_SORT);
@@ -84,6 +87,17 @@ public class TimelineFragment extends ListFragment implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		// Get the details fragment
+		DetailsFragment fragment = (DetailsFragment) getFragmentManager()
+				.findFragmentById(R.id.fragment_details);
+
+		// Is details fragment visible?
+		if (fragment != null && fragment.isVisible() && cursor.getCount()==0) {
+			fragment.updateView(-1);
+			Toast.makeText(getActivity(), "No data", Toast.LENGTH_LONG).show();
+		} 
+
+		Log.d(TAG, "onLoadFinished with cursor: "+cursor.getCount());
 		mAdapter.swapCursor(cursor);
 	}
 
