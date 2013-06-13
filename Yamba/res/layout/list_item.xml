@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants" >
 
     <TextView
         android:id="@+id/list_item_text_user"
@@ -27,8 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:autoLink="web"
         android:layout_below="@+id/list_item_text_created_at"
+        android:autoLink="web"
+        android:focusable="false"
+        android:linksClickable="true"
         android:text="Andriod just became the #1 OS on the planet. Take that, Microsoft! http://t.co/123"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

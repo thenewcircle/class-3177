@@ -9,8 +9,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
@@ -53,27 +53,13 @@ public class TimelineFragment extends ListFragment implements
 		setListAdapter(mAdapter);
 
 		getLoaderManager().initLoader(LOADER_ID, null, this);
-
-		getListView().setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, int position,
-					long id) {
-				startActivity(new Intent(getActivity(), DetailsActivity.class)
-						.putExtra(StatusContract.Column.ID, id));
-			}
-
-		});
-
 	}
 
-//	@Override
-//	public void onListItemClick(ListView l, View v, int position, long id) {
-//		startActivity(new Intent(getActivity(), DetailsActivity.class)
-//				.putExtra(StatusContract.Column.ID, id));
-//
-//		Log.d(TAG, String.format("pos: %d,  id: %d", position, id));
-//	}
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		startActivity(new Intent(getActivity(), DetailsActivity.class)
+				.putExtra(StatusContract.Column.ID, id));
+	}
 
 	// --- Loader Callbacks ---
 
