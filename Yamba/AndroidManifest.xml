@@ -65,7 +65,7 @@
         </receiver>
         <receiver
             android:name=".YambaWidget"
-            android:exported="false" >
+            android:exported="false"  >
             <intent-filter>
                 <action android:name="com.twitter.yamba.action.NEW_STATUSES" />
             </intent-filter>

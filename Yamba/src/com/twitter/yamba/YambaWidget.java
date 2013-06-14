@@ -52,7 +52,7 @@ public class YambaWidget extends AppWidgetProvider {
 
 			// Update the view
 			RemoteViews view = new RemoteViews(context.getPackageName(),
-					R.layout.list_item);
+					R.layout.widget);
 
 			// Update the remote view
 			view.setTextViewText(R.id.list_item_text_user, user);
