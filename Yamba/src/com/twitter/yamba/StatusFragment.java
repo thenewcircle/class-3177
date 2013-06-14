@@ -3,17 +3,13 @@ package com.twitter.yamba;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.marakana.android.yamba.clientlib.YambaClient;
+import com.twitter.yambacommon.YambaManager;
 
 public class StatusFragment extends Fragment {
 	private static final String TAG = StatusFragment.class.getSimpleName();
@@ -36,6 +32,7 @@ public class StatusFragment extends Fragment {
 	private int mDefaultColor;
 	private LocationManager locationManager;
 	private static Location location;
+	private YambaManager yambaManager;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +40,7 @@ public class StatusFragment extends Fragment {
 		locationManager = (LocationManager) getActivity().getSystemService(
 				Context.LOCATION_SERVICE);
 		location = locationManager.getLastKnownLocation(PROVIDER);
+		yambaManager = new YambaManager(getActivity());
 	}
 
 	@Override
@@ -145,6 +143,7 @@ public class StatusFragment extends Fragment {
 		@Override
 		protected String doInBackground(String... params) {
 			try {
+				/*
 				SharedPreferences prefs = PreferenceManager
 						.getDefaultSharedPreferences(getActivity());
 				String username = prefs.getString("username", "");
@@ -167,7 +166,10 @@ public class StatusFragment extends Fragment {
 				} else {
 					cloud.postStatus(params[0]);
 				}
-
+				*/
+				
+				yambaManager.post(params[0]);
+				
 				Log.d(TAG, "Successfully posted to the cloud: " + params[0]);
 				return "Successfully posted";
 			} catch (Exception e) {
