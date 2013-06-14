@@ -9,7 +9,7 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -46,20 +46,35 @@
             android:name="com.twitter.yamba.StatusProvider"
             android:authorities="com.twitter.yamba.StatusProvider"
             android:exported="false" />
-        
-        <receiver android:name=".BootReceiver">
-            <intent-filter >
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+
+        <receiver android:name=".BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-            <intent-filter >
-                <action android:name="com.twitter.yamba.action.UPDATED_INTERVAL"/>
+            <intent-filter>
+                <action android:name="com.twitter.yamba.action.UPDATED_INTERVAL" />
             </intent-filter>
         </receiver>
-        
-        <receiver android:name=".NotificationReceiver" android:exported="false">
-            <intent-filter >
-                <action android:name="com.twitter.yamba.action.NEW_STATUSES"/>
+        <receiver
+            android:name=".NotificationReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.twitter.yamba.action.NEW_STATUSES" />
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".YambaWidget"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.twitter.yamba.action.NEW_STATUSES" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/yamba_widget" />
         </receiver>
     </application>
 
