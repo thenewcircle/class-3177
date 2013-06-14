@@ -48,4 +48,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/list_item_text_message" />
 
+   
+
 </RelativeLayout>

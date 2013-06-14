@@ -44,11 +44,12 @@ public class StatusFragment extends Fragment {
 				Context.LOCATION_SERVICE);
 		location = locationManager.getLastKnownLocation(PROVIDER);
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		locationManager.requestLocationUpdates(PROVIDER, 60000, 1000, LOCATION_LISTENER);
+		locationManager.requestLocationUpdates(PROVIDER, 60000, 1000,
+				LOCATION_LISTENER);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class StatusFragment extends Fragment {
 		super.onPause();
 		locationManager.removeUpdates(LOCATION_LISTENER);
 	}
-	
+
 	private static final LocationListener LOCATION_LISTENER = new LocationListener() {
 		@Override
 		public void onLocationChanged(Location l) {
@@ -64,18 +65,18 @@ public class StatusFragment extends Fragment {
 		}
 
 		@Override
-		public void onProviderDisabled(String provider) {				
+		public void onProviderDisabled(String provider) {
 		}
+
 		@Override
 		public void onProviderEnabled(String provider) {
 		}
 
 		@Override
-		public void onStatusChanged(String provider, int status,
-				Bundle extras) {
-		}			
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+		}
 	};
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -180,7 +181,8 @@ public class StatusFragment extends Fragment {
 		@Override
 		protected void onPostExecute(String result) {
 			progress.dismiss();
-			Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+			if (getActivity() != null && result != null)
+				Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
 		}
 
 	}

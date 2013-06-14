@@ -5,8 +5,12 @@ Android Bootcamp @Twitter - June '13
 
 == Parking Lot ==
 
-* Pull to refresh listener
-* Custom Views
-* NDK
-* Binder IPC
+* Pull to refresh listener: 
+** https://github.com/shontauro/android-pulltorefresh-and-loadmore
+** https://github.com/johannilsson/android-pulltorefresh
+** https://github.com/woozzu/RefreshableListView/blob/master/src/com/woozzu/android/widget/RefreshableListView.java
 
+* Testing
+* Custom Views
+* Binder IPC
+* NDK/JNI
