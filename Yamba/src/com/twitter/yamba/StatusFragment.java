@@ -137,6 +137,7 @@ public class StatusFragment extends Fragment {
 		protected void onPreExecute() {
 			progress = ProgressDialog.show(getActivity(), "Posting",
 					"Please wait...");
+			progress.setCancelable(true);
 		}
 
 		// Executes on a non-UI thread

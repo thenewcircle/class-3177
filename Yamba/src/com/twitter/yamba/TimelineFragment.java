@@ -20,9 +20,11 @@ public class TimelineFragment extends ListFragment implements
 		LoaderCallbacks<Cursor> {
 	private static final String TAG = TimelineFragment.class.getSimpleName();
 	private static final String[] FROM = { StatusContract.Column.USER,
-			StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT };
+			StatusContract.Column.MESSAGE, StatusContract.Column.CREATED_AT,
+			StatusContract.Column.CREATED_AT };
 	private static final int[] TO = { R.id.list_item_text_user,
-			R.id.list_item_text_message, R.id.list_item_text_created_at };
+			R.id.list_item_text_message, R.id.list_item_text_created_at,
+			R.id.list_item_freshness };
 	private static final int LOADER_ID = 42;
 	private SimpleCursorAdapter mAdapter;
 
@@ -30,16 +32,23 @@ public class TimelineFragment extends ListFragment implements
 
 		@Override
 		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-			if (view.getId() != R.id.list_item_text_created_at)
-				return false;
-
+			long timestamp;
+			
 			// Custom binding
-			long timestamp = cursor.getLong(columnIndex);
-			CharSequence relTime = DateUtils
-					.getRelativeTimeSpanString(timestamp);
-			((TextView) view).setText(relTime);
-
-			return true;
+			switch (view.getId()) {
+			case R.id.list_item_text_created_at:
+				timestamp = cursor.getLong(columnIndex);
+				CharSequence relTime = DateUtils
+						.getRelativeTimeSpanString(timestamp);
+				((TextView) view).setText(relTime);
+				return true;
+			case R.id.list_item_freshness:
+				timestamp = cursor.getLong(columnIndex);
+				((FreshnessView) view).setTimestamp(timestamp);
+				return true;
+			default:
+				return false;
+			}
 		}
 	};
 
@@ -92,12 +101,12 @@ public class TimelineFragment extends ListFragment implements
 				.findFragmentById(R.id.fragment_details);
 
 		// Is details fragment visible?
-		if (fragment != null && fragment.isVisible() && cursor.getCount()==0) {
+		if (fragment != null && fragment.isVisible() && cursor.getCount() == 0) {
 			fragment.updateView(-1);
 			Toast.makeText(getActivity(), "No data", Toast.LENGTH_LONG).show();
-		} 
+		}
 
-		Log.d(TAG, "onLoadFinished with cursor: "+cursor.getCount());
+		Log.d(TAG, "onLoadFinished with cursor: " + cursor.getCount());
 		mAdapter.swapCursor(cursor);
 	}
 

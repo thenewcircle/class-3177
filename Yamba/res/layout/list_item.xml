@@ -41,4 +41,11 @@
         android:text="Andriod just became the #1 OS on the planet. Take that, Microsoft! http://t.co/123"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <com.twitter.yamba.FreshnessView
+        android:id="@+id/list_item_freshness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/list_item_text_message" />
+
 </RelativeLayout>
